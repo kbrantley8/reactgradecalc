@@ -1,7 +1,12 @@
 import React from 'react';
 import '../style/Course.css';
+import Section from './Section';
 
 function Course () {
+    var section = [];
+    for (var i = 0; i < 5; i++) {
+        section.push(new Section())
+    }
     return (
         <div id="course_div" className="course-main">
             <div>
@@ -17,6 +22,9 @@ function Course () {
                     <th>Weight</th>
                     <th>Average</th>
                 </tr>
+                <tbody>
+                    {section}
+                </tbody>
             </table>
         </div>
     );
