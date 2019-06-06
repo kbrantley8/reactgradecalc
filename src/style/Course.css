@@ -1,0 +1,32 @@
+.course-main {
+    border: 2px solid lightslategrey;
+    border-radius: 10px;
+    width: 75%;
+    margin: 10px auto 10px auto;
+    font-family: "Bookman Old Style";
+}
+/*
+Bookman Old Style
+*/
+
+.course-main h1 {
+    border-bottom: 2px solid lightslategray;
+    font-family: bold;
+    font-size: 50px; 
+    margin: 0px;
+    padding: 25px 10px 0px 10px;
+    vertical-align: bottom;
+}
+
+/*TABLE FORMAT*/
+.course-main table {
+    width: 100%;
+}
+.course-main th {
+    font-size: 20px;
+    font-family: bold;
+    text-align: center;
+    border-left: 1px solid lightslategrey;
+    border-right: 1px solid lightslategrey;
+    border-bottom: 1px solid lightslategrey;
+}
