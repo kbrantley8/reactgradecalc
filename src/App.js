@@ -1,16 +1,13 @@
 import React from 'react';
 import Course from './view/Course.js';
 import './App.css';
-import $ from "jquery";
-import Section from './view/Section.js';
+// import $ from "jquery";
 
 function App() {
-  var temp = new Course();
-  var sec = new Section();
-  $('#course_table').append(sec);
+  var course = new Course();
   return (
-    <div className="App">
-      {temp}
+    <div>
+      {course}
     </div>
   );
 }

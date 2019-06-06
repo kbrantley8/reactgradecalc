@@ -1,4 +1,5 @@
 .course-main {
+    text-align: center;
     border: 2px solid lightslategrey;
     border-radius: 10px;
     width: 75%;
@@ -25,6 +26,14 @@ Bookman Old Style
 .course-main th {
     font-size: 20px;
     font-family: bold;
+    text-align: center;
+    border-left: 1px solid lightslategrey;
+    border-right: 1px solid lightslategrey;
+    border-bottom: 1px solid lightslategrey;
+}
+
+.course-main td {
+    font-size: 15px;
     text-align: center;
     border-left: 1px solid lightslategrey;
     border-right: 1px solid lightslategrey;

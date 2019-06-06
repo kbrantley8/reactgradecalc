@@ -1,15 +1,16 @@
 import React from 'react';
 import '../style/Course.css';
 
-function Section() {
+function Section () {
+    
     return (
         <tr>
-            <tb>TEMP</tb>
-            <tb>TEMP</tb>
-            <tb>TEMP</tb>
-            <tb>TEMP</tb>
-            <tb>TEMP</tb>
-            <tb>TEMP</tb>
+            <td>TEMP</td>
+            <td>TEMP</td>
+            <td>TEMP</td>
+            <td>TEMP</td>
+            <td>TEMP</td>
+            <td>TEMP</td>
         </tr>
     );
 }
