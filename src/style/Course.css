@@ -1,5 +1,6 @@
 .course-main {
     text-align: center;
+    background-color: white;
     border: 2px solid lightslategrey;
     border-radius: 10px;
     width: 75%;
@@ -16,7 +17,6 @@ Bookman Old Style
     font-size: 50px; 
     margin: 0px;
     padding: 25px 10px 0px 10px;
-    vertical-align: bottom;
 }
 
 /*TABLE FORMAT*/
@@ -27,6 +27,7 @@ Bookman Old Style
     font-size: 20px;
     font-family: bold;
     text-align: center;
+    padding-top: 8px;
     border-left: 1px solid lightslategrey;
     border-right: 1px solid lightslategrey;
     border-bottom: 1px solid lightslategrey;
@@ -38,4 +39,38 @@ Bookman Old Style
     border-left: 1px solid lightslategrey;
     border-right: 1px solid lightslategrey;
     border-bottom: 1px solid lightslategrey;
+}
+
+/*
+newSection
+*/
+.new-section {
+    text-align: center;
+    background-color: white;
+    border: 2px solid lightslategrey;
+    border-radius: 10px;
+    width: 50%;
+    margin: 10px auto 10px auto;
+    font-family: "Bookman Old Style";
+}
+
+.new-section label {
+    font-size: 20px;
+}
+
+.row-padding {
+    padding-top: 10px;
+}
+
+.new-section h1 {
+    border-bottom: 2px solid lightslategray;
+    font-family: bold;
+    font-size: 40px; 
+    margin: 0px;
+    padding: 25px 10px 0px 10px;
+    border-bottom: 2px solid black;
+}
+
+.temp {
+    background-color: lightblue;
 }
