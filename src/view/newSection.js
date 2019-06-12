@@ -1,6 +1,5 @@
 import React from 'react';
 import '../style/Course.css';
-import Section from './Section';
 
 function newSection() {
     return (
@@ -10,43 +9,49 @@ function newSection() {
             </div>
             <div className="row row-padding">
                 <div className="col-sm-6">
-                    <label for="temp">Section Name:</label>
+                    <label for="sectionName">Section Name:</label>
                 </div>
                 <div className="col-sm-6">
-                    <input type="text" id="temp"></input>
+                    <input type="text" id="sectionName"></input>
                 </div>
             </div>
             <div className="row row-padding">
                 <div className="col-sm-6">
-                    <label for="temp">Grades:</label>
+                    <label for="grades">Grades:</label>
                 </div>
                 <div className="col-sm-6">
-                    <input type="text" id="temp"></input>
+                    <input type="number" id="grades"></input>
                 </div>
             </div>
             <div className="row row-padding">
                 <div className="col-sm-6">
-                    <label for="temp">Are any grades dropped?</label>
+                    <label for="gradesBool">Are any grades dropped?</label>
                 </div>
                 <div className="col-sm-6">
-                    <input type="text" id="temp"></input>
+                    <input type="text" id="gradesBool"></input>
                 </div>
             </div>
             <div className="row row-padding">
                 <div className="col-sm-6">
-                    <label for="temp">If so, how many are dropped?</label>
+                    <label for="gradesNum">If so, how many are dropped?</label>
                 </div>
                 <div className="col-sm-6">
-                    <input type="text" id="temp"></input>
+                    <input type="text" id="gradesNum"></input>
                 </div>
             </div>
             <div className="row row-padding">
                 <div className="col-sm-6">
-                    <label for="temp">Weight:</label>
+                    <label for="weight">Weight:</label>
                 </div>
                 <div className="col-sm-6">
-                    <input type="number" id="temp" min="0" max="100"></input>
+                    <input type="number" id="weight" min="0" max="100"></input>
                 </div>
+            </div>
+            <div className="row row-padding">
+                <div className="mx-auto">
+                    <button className="align-baseline">Add a Section</button>
+                </div>
+               
             </div>
         </div>
     );

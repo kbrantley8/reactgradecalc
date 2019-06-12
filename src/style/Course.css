@@ -71,6 +71,12 @@ newSection
     border-bottom: 2px solid black;
 }
 
-.temp {
-    background-color: lightblue;
+.new-section button {
+    font-size: 20px;
+    text-align: center;
+    margin: 15px;
 }
+.new-section input {
+    text-align: center;
+}
+

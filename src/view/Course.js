@@ -1,12 +1,18 @@
 import React from 'react';
 import '../style/Course.css';
 import Section from './Section';
+import course from '../model/course.js';
+import section from '../model/section.js';
 
 function Course () {
-    var section = [];
+    var sect = [];
     for (var i = 0; i < 5; i++) {
-        section.push(new Section())
+        sect.push(new Section())
     }
+    var sec = new section("HW", [100, 50], "No", "apple", "apple");
+    console.log(sec)
+    // var co = new course("Eas");
+    // console.log(co)
     return (
         <div id="course_div" className="course-main">
             <div>
@@ -23,7 +29,7 @@ function Course () {
                     <th>Average</th>
                 </tr>
                 <tbody>
-                    {section}
+                    {sect}
                 </tbody>
             </table>
         </div>
