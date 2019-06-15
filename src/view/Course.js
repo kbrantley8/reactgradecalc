@@ -3,16 +3,17 @@ import '../style/Course.css';
 import Section from './Section';
 import course from '../model/course.js';
 import section from '../model/section.js';
+import courseController from '../controller/courseController.js';
+import $ from "jquery";
 
-function Course () {
+var Course = function() {
     var sect = [];
     for (var i = 0; i < 5; i++) {
         sect.push(new Section())
     }
     var sec = new section("HW", [100, 50], "No", "apple", "apple");
-    console.log(sec)
-    // var co = new course("Eas");
-    // console.log(co)
+    var cour = new course("Apple")
+    this.init()
     return (
         <div id="course_div" className="course-main">
             <div>
@@ -34,6 +35,16 @@ function Course () {
             </table>
         </div>
     );
+}
+
+Course.prototype = {
+    init: function() {
+        this.addEventListeners()
+    },
+
+    addEventListeners: function() {
+        
+    }
 }
 
 export default Course;
