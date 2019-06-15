@@ -1,7 +1,10 @@
 import React from 'react';
 import '../style/Course.css';
+import $ from "jquery";
 
-function newSection() {
+var newSection = function() {
+    this.init()
+    console.log($("#addSection"))
     return (
         <div className="new-section col-sm-6">
             <div>
@@ -49,12 +52,18 @@ function newSection() {
             </div>
             <div className="row row-padding">
                 <div className="mx-auto">
-                    <button className="align-baseline">Add a Section</button>
+                    <button id="addSection" className="align-baseline">Add a Section</button>
                 </div>
                
             </div>
         </div>
     );
+}
+
+newSection.prototype = {
+    init: function() {
+        // console.log("temp")
+    }
 }
 
 export default newSection;
