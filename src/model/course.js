@@ -1,6 +1,6 @@
 var course = function (name) {
     this.name = name;
-    this.sections = [];
+    this.sections = {};
 }
 
 course.prototype = {
@@ -21,14 +21,14 @@ course.prototype = {
     },
 
     addSection: function (newSection) {
-        this.sections.push(newSection)
+        this.sections[newSection] = newSection
     },
 
     deleteSection: function (newSection) {
-        var newSec = []
-        for (var i = 0; i < this.sections.length; i++) {
-            if (this.sections[i] != newSection) {
-                newSec.push(this.sections[i])
+        var newSec = {}
+        for (var sec in this.sections) {
+            if (this.sections[sec] != newSection) {
+                newSec[sec] = this.sections[sec]
             }
         }
         this.sections = newSec;
