@@ -1,6 +1,5 @@
-var sectionController = function (model, view) {
-    this.model = model
-    this.view = view
+var sectionController = function () {
+    this.name = "This is a section controller"
 }
 
 sectionController.prototype = {

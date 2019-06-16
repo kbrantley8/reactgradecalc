@@ -5,45 +5,49 @@ import course from '../model/course.js';
 import section from '../model/section.js';
 import courseController from '../controller/courseController.js';
 import $ from "jquery";
+import AddSection from './newSection.js';
 
-var Course = function() {
-    var sect = [];
-    for (var i = 0; i < 5; i++) {
-        sect.push(new Section())
+class Course extends React.Component {
+    constructor(props) {
+        super(props);
+        this.controller = props.ctr;
+
+        this.state = {
+            sect: [],
+            name: "acura"
+        }
+        for (var i = 0; i < 5; i++) {
+            this.state.sect.push(new Section())
+        }
+        // var sec = new section("HW", [100, 50], "No", "apple", "apple");
+        // var cour = new course("Apple")
     }
-    var sec = new section("HW", [100, 50], "No", "apple", "apple");
-    var cour = new course("Apple")
-    this.init()
-    return (
-        <div id="course_div" className="course-main">
+
+    render() {
+        return (
             <div>
-                <h1> EAS 2600 - Rocks For Jocks </h1>             
-            </div>
-
-            <table id="course_table">
-                <tr>
-                    <th>Section</th>
-                    <th>Grades</th>
-                    <th>Dropped?</th>
-                    <th>How many are dropped?</th>
-                    <th>Weight</th>
-                    <th>Average</th>
-                </tr>
-                <tbody>
-                    {sect}
-                </tbody>
-            </table>
-        </div>
-    );
-}
-
-Course.prototype = {
-    init: function() {
-        this.addEventListeners()
-    },
-
-    addEventListeners: function() {
+                <div id="course_div" className="course-main">
+                    <div>
+                        <h1 id={this.state.name} > EAS 2600 - Intro to Earth Science </h1>             
+                    </div>
         
+                    <table id="course_table">
+                        <tr>
+                            <th>Section</th>
+                            <th>Grades</th>
+                            <th>Dropped?</th>
+                            <th>How many are dropped?</th>
+                            <th>Weight</th>
+                            <th>Average</th>
+                        </tr>
+                        <tbody>
+                            {this.state.sect}
+                        </tbody>
+                    </table>
+                </div>
+                <AddSection ctr={this.controller}/>
+            </div>
+        );
     }
 }
 

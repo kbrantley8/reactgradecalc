@@ -1,19 +1,26 @@
 import React from 'react';
 import Course from './view/Course.js';
 import './App.css';
-import newSection from './view/newSection.js';
+import AddSection from './view/newSection.js';
+import CourseController from './controller/courseController.js';
 // import $ from "jquery";
 
-function App() {
-  var course = new Course();
-  var newsection = new newSection();
-  document.body.style = 'background: lightblue;';
-  return (
-    <div>
-      {course}
-      {newsection}
-    </div>
-  );
+class App extends React.Component {
+  constructor() {
+    super()
+    this.courseController = new CourseController();
+    // this.courseController.addACourse("Apple Jacks Studios")
+    document.body.style = 'background: lightblue;';
+  }
+
+  render() {
+    return (
+      <div>
+        <Course ctr={this.courseController} />
+      </div>
+    );
+  }
+  
 }
 
 export default App;
