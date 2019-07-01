@@ -1,6 +1,11 @@
-var course = function (name) {
+import Course from '../view/Course.js';
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+var course = function (name, num) {
     this.name = name;
     this.sections = {};
+    ReactDOM.render(<Course name={name}/>, document.getElementById('root'));
 }
 
 course.prototype = {

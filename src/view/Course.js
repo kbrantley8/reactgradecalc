@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
 import '../style/Course.css';
 import Section from './Section';
 import course from '../model/course.js';
@@ -10,17 +11,32 @@ import AddSection from './newSection.js';
 class Course extends React.Component {
     constructor(props) {
         super(props);
-        this.controller = props.ctr;
+        // this.controller = props.ctr;
 
         this.state = {
             sect: [],
-            name: "acura"
+            name: props.name
         }
-        for (var i = 0; i < 5; i++) {
-            this.state.sect.push(new Section())
-        }
+        this.changeName = this.changeName.bind(this);
+        this.myCallBack = this.myCallBack.bind(this);
+        // for (var i = 0; i < 5; i++) {
+        //     this.state.sect.push(new Section())
+        // }
         // var sec = new section("HW", [100, 50], "No", "apple", "apple");
         // var cour = new course("Apple")
+    }
+
+    changeName() {
+        var newName = (this.state.name == "EAS 2600 - Intro to Rocks") ? "CS 3600 - Intro to AI" : "EAS 2600 - Intro to Rocks";
+        this.setState({name: newName})
+        console.log($("#addSection"))
+        $("#addSection").text("APpleJacks Please")
+    }
+
+    myCallBack(info) {
+        var temp = this.state.sect
+        temp.push(info)
+        this.setState({sect: temp})
     }
 
     render() {
@@ -28,7 +44,7 @@ class Course extends React.Component {
             <div>
                 <div id="course_div" className="course-main">
                     <div>
-                        <h1 id={this.state.name} > EAS 2600 - Intro to Earth Science </h1>             
+                        <h1 id="course_name" > {this.state.name} </h1>             
                     </div>
         
                     <table id="course_table">
@@ -45,7 +61,10 @@ class Course extends React.Component {
                         </tbody>
                     </table>
                 </div>
-                <AddSection ctr={this.controller}/>
+                <AddSection ctr={this.myCallBack}/>
+                <button onClick={this.changeName}>
+                    APPLE JACKS BUTTON
+                </button>
             </div>
         );
     }
