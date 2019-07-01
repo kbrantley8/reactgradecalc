@@ -1,7 +1,7 @@
 import React from 'react';
 import '../style/Course.css';
 import $ from "jquery";
-import section from '../model/section';
+import Section from '../view/Section';
 import Course from './Course';
 
 class newSection extends React.Component {
@@ -9,21 +9,54 @@ class newSection extends React.Component {
         super(props)
         this.controller = props.ctr;
 
+        this.state = {
+            listOfInputs: []
+        }
+        this.state.listOfInputs.push(<input type="number" id="grades0"></input>)
+        this.addGrade = this.addGrade.bind(this)
+        this.loseGrade = this.loseGrade.bind(this)
         this.addSection = this.addSection.bind(this);
     }
 
     addSection() {
-        // var sectionName = $("#sectionName").val()
-        // var grades = $("#grades").val()
-        // var gradesBool = $("#gradesBool").val()
-        // var gradesNum = $("#gradesNum").val()
-        // var weight = $("#weight").val()
-        // var sec = new section(sectionName, grades,gradesBool, gradesNum, weight);
+        var sectionName = $("#sectionName").val()
+        var gradesBool = $("#gradesBool").val()
+        var gradesNum = $("#gradesNum").val()
+        var weight = $("#weight").val()
+        var courseName = $("#course_name").val()
+        var grades = [];
+        for (var i = 0; i < this.state.listOfInputs.length; i++) {
+            var toGet = "#grades" + i;
+            var num = $(toGet).val()
+            grades.push(num)
+        }
+        let props = { 
+            name: sectionName,
+            grades: grades,
+            dropped: gradesBool,
+            numDropped: gradesNum,
+            weight: weight
+        }
+        
+        var sec = <Section {...props}/>;
+        this.props.ctr(sec);
         // var cour = new Course()
         // console.log(cour)
         // console.log(this.controller)
-        this.controller.rename("ap", "b")
-        console.log("GOT HERE")
+        // console.log("GOT HERE")
+    }
+
+    addGrade() {
+        var temp = this.state.listOfInputs;
+        var newID = "grades" + temp.length;
+        temp.push(<input type="number" className="input-margin" id={newID}></input>)
+        this.setState({listOfInputs: temp})
+    }
+
+    loseGrade() {
+        var temp = this.state.listOfInputs;
+        temp.pop()
+        this.setState({listOfInputs: temp})
     }
 
     render() {
@@ -45,7 +78,15 @@ class newSection extends React.Component {
                         <label for="grades">Grades:</label>
                     </div>
                     <div className="col-sm-6">
-                        <input type="number" id="grades"></input>
+                        {this.state.listOfInputs}
+                    </div>
+                </div>
+                <div className="row row-padding">
+                    <div className="col-sm-6">
+                    </div>
+                    <div className="col-sm-6">
+                        <button onClick={this.loseGrade}> <b>-</b> </button>
+                        <button onClick={this.addGrade}> <b>+</b> </button>
                     </div>
                 </div>
                 <div className="row row-padding">
@@ -74,7 +115,7 @@ class newSection extends React.Component {
                 </div>
                 <div className="row row-padding">
                     <div className="mx-auto">
-                        <button id="addSection" onClick={this.addSection} className="align-baseline">Add a Section</button>
+                        <button id="addSection" onClick={this.addSection} className="align-baseline newSectionButton">Add a Section</button>
                     </div>
                 
                 </div>
