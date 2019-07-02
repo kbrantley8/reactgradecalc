@@ -80,7 +80,11 @@ newSection
 .new-section input {
     text-align: center;
 }
-
+.new-section select {
+    width: 67%;
+    font-size: 20px;
+    text-align: center;
+}
 .addSectionInput {
     margin-top: 10px;
 }

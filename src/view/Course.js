@@ -15,7 +15,8 @@ class Course extends React.Component {
 
         this.state = {
             sect: [],
-            name: props.name
+            name: props.name,
+            average: 0,
         }
         this.changeName = this.changeName.bind(this);
         this.myCallBack = this.myCallBack.bind(this);
@@ -29,13 +30,24 @@ class Course extends React.Component {
     changeName() {
         var newName = (this.state.name == "EAS 2600 - Intro to Rocks") ? "CS 3600 - Intro to AI" : "EAS 2600 - Intro to Rocks";
         this.setState({name: newName})
-        console.log($("#addSection"))
         $("#addSection").text("APpleJacks Please")
     }
 
     myCallBack(info) {
         var temp = this.state.sect
         temp.push(info)
+        var val = temp[this.state.sect.length - 1].props["weight"]
+        var val1 = temp[this.state.sect.length - 1].props["grades"]
+        var sum = 0;
+        for (var i = 0; i < val1.length; i++){
+            sum += parseInt(val1[i]);
+        }
+        var avg = Math.round((sum / val1.length) * 10) / 10;
+        val = val.substring(0, val.length - 1)
+        // var wei = parseInt(val);
+        var tem = avg * (val / 100);
+        var newAvg = this.state.average + tem;
+        this.setState({average: newAvg})
         this.setState({sect: temp})
     }
 
@@ -44,7 +56,9 @@ class Course extends React.Component {
             <div>
                 <div id="course_div" className="course-main">
                     <div>
-                        <h1 id="course_name" > {this.state.name} </h1>             
+                        <h1 id="course_name" > {this.state.name} 
+                            <p>{this.state.average + "%"}</p>
+                        </h1>             
                     </div>
         
                     <table id="course_table">

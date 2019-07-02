@@ -16,6 +16,7 @@ class newSection extends React.Component {
         this.addGrade = this.addGrade.bind(this)
         this.loseGrade = this.loseGrade.bind(this)
         this.addSection = this.addSection.bind(this);
+        this.processClick = this.processClick.bind(this);
     }
 
     addSection() {
@@ -23,8 +24,12 @@ class newSection extends React.Component {
         var gradesBool = $("#gradesBool").val()
         var gradesNum = $("#gradesNum").val()
         var weight = $("#weight").val()
+        weight = weight + "%"
         var courseName = $("#course_name").val()
         var grades = [];
+        if (gradesNum == "") {
+            gradesNum = "N/A"
+        }
         for (var i = 0; i < this.state.listOfInputs.length; i++) {
             var toGet = "#grades" + i;
             var num = $(toGet).val()
@@ -57,6 +62,15 @@ class newSection extends React.Component {
         var temp = this.state.listOfInputs;
         temp.pop()
         this.setState({listOfInputs: temp})
+    }
+
+    processClick() {
+        var choice = $("#gradesBool").children("option:selected").val();
+        if (choice == "Yes") {
+            $("#numDropped").attr("hidden", false)
+        } else {
+            $("#numDropped").attr("hidden", true)
+        }
     }
 
     render() {
@@ -94,10 +108,14 @@ class newSection extends React.Component {
                         <label for="gradesBool">Are any grades dropped?</label>
                     </div>
                     <div className="col-sm-6">
-                        <input type="text" id="gradesBool"></input>
+                        <select type="text" id="gradesBool" onChange={this.processClick}>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+
                     </div>
                 </div>
-                <div className="row row-padding">
+                <div className="row row-padding" id="numDropped" hidden>
                     <div className="col-sm-6">
                         <label for="gradesNum">If so, how many are dropped?</label>
                     </div>
@@ -110,7 +128,7 @@ class newSection extends React.Component {
                         <label for="weight">Weight:</label>
                     </div>
                     <div className="col-sm-6">
-                        <input type="number" id="weight" min="0" max="100"></input>
+                        <input type="number" placeholder="%" id="weight" min="0" max="100"></input>
                     </div>
                 </div>
                 <div className="row row-padding">
