@@ -3,7 +3,7 @@ import Course from './view/Course.js';
 import './App.css';
 import AddSection from './view/newSection.js';
 import CourseController from './controller/courseController.js';
-// import $ from "jquery";
+import $ from "jquery";
 
 class App extends React.Component {
   constructor() {
@@ -14,15 +14,37 @@ class App extends React.Component {
     // this.temp = <Course />;
     // this.courseController.addACourse("Apple Jacks Studios")
     document.body.style = 'background: lightblue;';
+    this.state = {
+      courses: []
+    }
   }
 
   render() {
     return (
       <div>
-        <Course name = {"EAS 2600 - Intro to Rocks"}/>
+        <div className="text-center add-course-form">
+          <button onClick={this.addNewCourse} className="add-course-button"> + Add a course</button>
+          <input id="newCourseName" ></input>
+        </div>
+        <div>
+          {this.state.courses.map((name) => (
+            <Course
+              name={name}
+            />
+          ))}
+        </div>
       </div>
       
     );
+  }
+
+  addNewCourse = () => {
+    var name = $("#newCourseName").val();
+    if (name != "") {
+      var list = this.state.courses;
+      list.push(name)
+      this.setState({courses: list})
+    }
   }
   
 }

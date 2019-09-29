@@ -18,19 +18,12 @@ class Course extends React.Component {
             name: props.name,
             average: 0,
         }
-        this.changeName = this.changeName.bind(this);
         this.myCallBack = this.myCallBack.bind(this);
         // for (var i = 0; i < 5; i++) {
         //     this.state.sect.push(new Section())
         // }
         // var sec = new section("HW", [100, 50], "No", "apple", "apple");
         // var cour = new course("Apple")
-    }
-
-    changeName() {
-        var newName = (this.state.name == "EAS 2600 - Intro to Rocks") ? "CS 3600 - Intro to AI" : "EAS 2600 - Intro to Rocks";
-        this.setState({name: newName})
-        $("#addSection").text("APpleJacks Please")
     }
 
     myCallBack(info) {
@@ -76,9 +69,6 @@ class Course extends React.Component {
                     </table>
                 </div>
                 <AddSection ctr={this.myCallBack}/>
-                <button onClick={this.changeName}>
-                    APPLE JACKS BUTTON
-                </button>
             </div>
         );
     }
