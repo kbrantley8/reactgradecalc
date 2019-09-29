@@ -17,6 +17,7 @@ class Course extends React.Component {
             sect: [],
             name: props.name,
             average: 0,
+            id: props.id
         }
         this.myCallBack = this.myCallBack.bind(this);
         // for (var i = 0; i < 5; i++) {
@@ -35,7 +36,7 @@ class Course extends React.Component {
         for (var i = 0; i < val1.length; i++){
             sum += parseInt(val1[i]);
         }
-        var avg = Math.round((sum / val1.length) * 10) / 10;
+        var avg = Math.round(((sum / val1.length) * 10) / 10);
         val = val.substring(0, val.length - 1)
         // var wei = parseInt(val);
         var tem = avg * (val / 100);
@@ -45,9 +46,10 @@ class Course extends React.Component {
     }
 
     render() {
+        var divNum = "course_div" + this.state.id;
         return (
-            <div>
-                <div id="course_div" className="course-main">
+            <div id={divNum}>
+                <div className="course-main">
                     <div>
                         <h1 id="course_name" > {this.state.name} 
                             <p>{this.state.average + "%"}</p>
@@ -68,7 +70,7 @@ class Course extends React.Component {
                         </tbody>
                     </table>
                 </div>
-                <AddSection ctr={this.myCallBack}/>
+                <AddSection ctr={this.myCallBack} id={this.state.id}/>
             </div>
         );
     }

@@ -10,6 +10,7 @@ class newSection extends React.Component {
         this.controller = props.ctr;
 
         this.state = {
+            id: props.id,
             listOfInputs: []
         }
         this.state.listOfInputs.push(<input type="number" id="grades0"></input>)
@@ -20,19 +21,21 @@ class newSection extends React.Component {
     }
 
     addSection() {
-        var sectionName = $("#sectionName").val()
-        var gradesBool = $("#gradesBool").val()
-        var gradesNum = $("#gradesNum").val()
-        var weight = $("#weight").val()
+        var courseToSee = "#course_div" + this.state.id;
+        courseToSee = $(courseToSee)
+        var sectionName = courseToSee.find("#sectionName").val()
+        var gradesBool = courseToSee.find("#gradesBool").val()
+        var gradesNum = courseToSee.find("#gradesNum").val()
+        var weight = courseToSee.find("#weight").val()
         weight = weight + "%"
-        var courseName = $("#course_name").val()
         var grades = [];
         if (gradesNum == "") {
             gradesNum = "N/A"
         }
         for (var i = 0; i < this.state.listOfInputs.length; i++) {
             var toGet = "#grades" + i;
-            var num = $(toGet).val()
+            var num = courseToSee.find(toGet).val()
+            courseToSee.find(toGet).val("")
             grades.push(num)
         }
         let props = { 
@@ -45,10 +48,15 @@ class newSection extends React.Component {
         
         var sec = <Section {...props}/>;
         this.props.ctr(sec);
-        // var cour = new Course()
-        // console.log(cour)
-        // console.log(this.controller)
-        // console.log("GOT HERE")
+        courseToSee.find("#sectionName").val("")
+        courseToSee.find("#gradesBool").val("No")
+        courseToSee.find("#gradesNum").val("")
+        courseToSee.find("#weight").val("")
+        var temp = this.state.listOfInputs
+        temp = [];
+        var newID = "grades" + temp.length;
+        temp.push(<input type="number" className="input-margin" id={newID}></input>)
+        this.setState({listOfInputs: temp})
     }
 
     addGrade() {

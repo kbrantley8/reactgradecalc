@@ -30,6 +30,7 @@ class App extends React.Component {
           {this.state.courses.map((name) => (
             <Course
               name={name}
+              id={this.state.courses.length}
             />
           ))}
         </div>
