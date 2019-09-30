@@ -1,8 +1,6 @@
 import React from 'react';
 import Course from './view/Course.js';
 import './App.css';
-import AddSection from './view/newSection.js';
-import CourseController from './controller/courseController.js';
 import $ from "jquery";
 
 class App extends React.Component {
@@ -22,10 +20,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div className="text-center add-course-form">
-          <button onClick={this.addNewCourse} className="add-course-button"> + Add a course</button>
-          <input id="newCourseName" ></input>
-        </div>
         <div>
           {this.state.courses.map((name) => (
             <Course
@@ -33,6 +27,10 @@ class App extends React.Component {
               id={this.state.courses.length}
             />
           ))}
+        </div>
+        <div className="text-center add-course-form">
+          <button onClick={this.addNewCourse} className="add-course-button"> + Add a course</button>
+          <input id="newCourseName" ></input>
         </div>
       </div>
       
@@ -44,6 +42,7 @@ class App extends React.Component {
     if (name != "") {
       var list = this.state.courses;
       list.push(name)
+      $("#newCourseName").val("")
       this.setState({courses: list})
     }
   }

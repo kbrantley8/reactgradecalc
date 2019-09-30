@@ -1,6 +1,5 @@
 import React from 'react';
 import '../style/Course.css';
-import { tsConstructorType } from '@babel/types';
 
 class Section extends React.Component {
     constructor(props) {

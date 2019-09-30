@@ -2,7 +2,6 @@ import React from 'react';
 import '../style/Course.css';
 import $ from "jquery";
 import Section from '../view/Section';
-import Course from './Course';
 
 class newSection extends React.Component {
     constructor(props) {

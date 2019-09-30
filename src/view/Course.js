@@ -1,11 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
 import '../style/Course.css';
-import Section from './Section';
-import course from '../model/course.js';
-import section from '../model/section.js';
-import courseController from '../controller/courseController.js';
-import $ from "jquery";
 import AddSection from './newSection.js';
 
 class Course extends React.Component {

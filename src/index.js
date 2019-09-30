@@ -4,8 +4,6 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import $ from "jquery";
-import courseControll from './controller/courseController.js'
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
