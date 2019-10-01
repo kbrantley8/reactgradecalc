@@ -70,7 +70,7 @@ class Course extends React.Component {
                         <div>
                             <h1 id="course_name" > {this.state.name} 
                                 <p>{this.state.average + "%"}</p>
-                                <button id="edit_course" className="big-save-button"
+                                <button id="save_course" className="big-save-button"
                                 onClick={() => this.changeCoursesDisplay(this.state.id)}>Save</button>
                             </h1>
                         </div>
@@ -88,9 +88,9 @@ class Course extends React.Component {
                                 {this.state.sect}
                             </tbody>
                         </table>
-                    </div>
-                    <div className="text-center">
-                        <button id="addNewSectionDisplay" onClick={() => this.changeAddSectionDisplay(divNum)}>+ Add a new Section</button>
+                        <div className="add-new-section-button">
+                            <button id="addNewSectionDisplay" onClick={() => this.changeAddSectionDisplay(divNum)}>+ Add a new Section</button>
+                        </div>
                     </div>
                     <div className="add-section-display">
                         <AddSection ctr={this.myCallBack} id={this.state.id} changeDisplay={this.changeAddSectionDisplay}/>
