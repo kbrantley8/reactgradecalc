@@ -24,12 +24,12 @@ class newSection extends React.Component {
         courseToSee = $(courseToSee)
         var sectionName = courseToSee.find("#sectionName").val()
         var gradesBool = courseToSee.find("#gradesBool").val()
-        var gradesNum = courseToSee.find("#gradesNum").val()
+        var gradesNum = courseToSee.find("#gradesNum").val();
         var weight = courseToSee.find("#weight").val()
         weight = weight + "%"
         var grades = [];
-        if (gradesNum == "") {
-            gradesNum = "N/A"
+        if (gradesBool == "No") {
+            gradesNum = "N/A";
         }
         for (var i = 0; i < this.state.listOfInputs.length; i++) {
             var toGet = "#grades" + i;
@@ -51,6 +51,7 @@ class newSection extends React.Component {
         courseToSee.find("#gradesBool").val("No")
         courseToSee.find("#gradesNum").val("")
         courseToSee.find("#weight").val("")
+        this.props.changeDisplay("course_div" + this.state.id)
         var temp = this.state.listOfInputs
         temp = [];
         var newID = "grades" + temp.length;
@@ -72,11 +73,12 @@ class newSection extends React.Component {
     }
 
     processClick() {
-        var choice = $("#gradesBool").children("option:selected").val();
+        var temp = "#course_div" + this.state.id;
+        var choice = $(temp).find("#gradesBool").children("option:selected").val();
         if (choice == "Yes") {
-            $("#numDropped").attr("hidden", false)
+            $(temp).find("#numDropped").attr("hidden", false)
         } else {
-            $("#numDropped").attr("hidden", true)
+            $(temp).find("#numDropped").attr("hidden", true)
         }
     }
 
@@ -84,7 +86,7 @@ class newSection extends React.Component {
         return (
             <div className="new-section col-sm-6">
                 <div>
-                    <h1> Add a Section </h1>             
+                    <h1> Add a Section </h1>
                 </div>
                 <div className="row row-padding">
                     <div className="col-sm-6">
@@ -140,6 +142,7 @@ class newSection extends React.Component {
                 </div>
                 <div className="row row-padding">
                     <div className="mx-auto">
+                        <button onClick={() => this.props.changeDisplay("course_div" + this.state.id)} className="align-baseline newSectionButton">Close</button>
                         <button id="addSection" onClick={this.addSection} className="align-baseline newSectionButton">Add a Section</button>
                     </div>
                 

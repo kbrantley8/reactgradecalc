@@ -33,6 +33,10 @@ Bookman Old Style
     border-bottom: 1px solid lightslategrey;
 }
 
+.course-main p {
+    margin-bottom: 0px;
+}
+
 .course-main td {
     font-size: 15px;
     text-align: center;
@@ -96,4 +100,61 @@ newSection
 
 .input-margin {
     margin-top: 10px;
+}
+
+.add-section-display {
+    display: none;
+}
+
+.change-course-display {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.small-course {
+    background-color: white;
+    border: 2px solid lightslategrey;
+    border-radius: 10px;
+    width: 25%;
+    margin: 10px 15px;
+    font-family: "Bookman Old Style" bold;
+    float: left;
+    text-align: center;
+}
+
+.list-of-courses {
+    width: 100%;
+    margin-left: 9% !important;
+}
+
+.small-course h1 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.small-course p {
+    margin-bottom: 0px;
+}
+
+.small-edit-button {
+    margin-bottom: 10px;
+    border-radius: 2px;
+}
+
+.big-save-button {
+    font-size: 19px;
+    text-align: center;
+    margin-bottom: 5px;
+    margin-left: 10px;
+    padding-top: 5px;
 }
