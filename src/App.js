@@ -6,11 +6,6 @@ import $ from "jquery";
 class App extends React.Component {
   constructor() {
     super()
-    // this.courseController = new CourseController();
-    // this.courseController.addACourse("EAS 2600")
-    // this.courseController.addACourse("THI IS THE NEW ONE")
-    // this.temp = <Course />;
-    // this.courseController.addACourse("Apple Jacks Studios")
     document.body.style = 'background: lightblue;';
     this.state = {
       courses: []
@@ -21,16 +16,20 @@ class App extends React.Component {
     return (
       <div>
         <div>
+          <h1 className="text-center grade-calc-title">Grade Calculator</h1>
+          <hr className="line-title"></hr>
+        </div>
+        <div className="text-center add-course-form">
+          <button onClick={this.addNewCourse} className="add-course-button"> + Add a course</button>
+          <input id="newCourseName" ></input>
+        </div>
+        <div className="text-center list-of-courses">
           {this.state.courses.map((name) => (
             <Course
               name={name}
               id={this.state.courses.length}
             />
           ))}
-        </div>
-        <div className="text-center add-course-form">
-          <button onClick={this.addNewCourse} className="add-course-button"> + Add a course</button>
-          <input id="newCourseName" ></input>
         </div>
       </div>
       

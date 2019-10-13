@@ -40,3 +40,15 @@
 .add-course-button {
   margin-right: 15px;
 }
+
+.grade-calc-title {
+  font-family: bold;
+  font-size: 100px; 
+  margin-top: 55px;
+}
+
+.line-title {
+  border: 2px solid black;
+  width: 75%;
+  margin-top: -25px;
+}
