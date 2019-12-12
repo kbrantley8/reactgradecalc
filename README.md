@@ -1,6 +1,6 @@
 # Kory's Grade Calculator in React
 
-This was just a starter project for me to learn React for my junior design project in the Fall of 2019. This was created over the Summer of 2019 using bootstrap and jQuery. Also for the Fall of 2019, I joined the GaTech SGA IT Board and wanted to experiment with RESTful API's and Node.js so there are two branches here to use. The **master** branch is the main branch, that has just basic functionality of the website with basically no backend/database. The **databaseIntegration** branch is the branch where I began experimenting with Node.js and MySQL integration, but it's not functional yet.
+This was just a starter project for me to learn React for my junior design project in the Fall of 2019. This was created over the Summer of 2019 using bootstrap and jQuery. Also for the Fall of 2019, I joined the GaTech SGA IT Board and wanted to experiment with creating a backend that uses a database. The **master** branch is the main branch, that has just basic functionality of the website with basically no backend/database. The **databaseIntegration** branch is the branch where I began experimenting with integrating Firebase into the project (it may not work perfectly so always make sure to reload your page when using it).
 
 ## Information
 
