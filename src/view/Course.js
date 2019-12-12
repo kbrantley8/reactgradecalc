@@ -2,19 +2,21 @@ import React from 'react';
 import '../style/Course.css';
 import AddSection from './newSection.js';
 import $ from "jquery";
+import firebase from '../firebase.js';
+import { thisExpression } from '@babel/types';
 
 class Course extends React.Component {
     constructor(props) {
         super(props);
-        // this.controller = props.ctr;
 
         this.state = {
-            sect: [],
+            sect: props.sections,
             name: props.name,
             average: 0,
-            id: props.id
+            id: props.uniqueId,
+            reRender: false
         }
-        this.myCallBack = this.myCallBack.bind(this);
+        this.forceReRender = this.forceReRender.bind(this);
         // for (var i = 0; i < 5; i++) {
         //     this.state.sect.push(new Section())
         // }
@@ -22,44 +24,23 @@ class Course extends React.Component {
         // var cour = new course("Apple")
     }
 
-    myCallBack(info) {
-        var temp = this.state.sect
-        temp.push(info)
-        var val = temp[this.state.sect.length - 1].props["weight"]
-        var val1 = temp[this.state.sect.length - 1].props["grades"]
-        var val2 = temp[this.state.sect.length - 1].props["numDropped"]
-        if (val2 == 'N/A') {
-            val2 = 0;
-        }
-        var sum = 0;
-        var tempArr = []
-        for (var i = 0; i < val1.length; i++){
-            tempArr.push(parseInt(val1[i]));
-            sum += parseInt(val1[i]);
-        }
-        tempArr.sort(function(a, b){return a-b});
-        for (var i = 0; i < val2; i++) {
-            sum -= tempArr[i]
-        }
-        console.log(sum)
-        var avg = Math.round(((sum / (val1.length - val2)) * 10) / 10);
-        val = val.substring(0, val.length - 1)
-        // var wei = parseInt(val);
-        var tem = avg * (val / 100);
-        var newAvg = this.state.average + tem;
-        this.setState({average: newAvg})
-        this.setState({sect: temp})
+    forceReRender() {
+        this.setState({reRender: true})
     }
 
     render() {
         var divNum = "course_div" + this.state.id;
         var smallCourseDiv = "smallCourseDisplay" + this.state.id;
+        var average = 0;
+        this.state.sect.forEach((section) => {
+            average = average + ((section.weight / 100) * section.avg)
+        })
         return (
             <div>
                 <div id={smallCourseDiv}>
                     <div className="small-course col-sm-6">
                             <h1 id="course_name" > {this.state.name} 
-                                <p>{this.state.average + "%"}</p>
+                                <p>{average + "%"}</p>
                             </h1>
                             <button id="edit_course" className="small-edit-button"
                                 onClick={() => this.changeCoursesDisplay(this.state.id)}>Edit</button>
@@ -69,7 +50,7 @@ class Course extends React.Component {
                     <div className="course-main">
                         <div>
                             <h1 id="course_name" > {this.state.name} 
-                                <p>{this.state.average + "%"}</p>
+                                <p>{average + "%"}</p>
                                 <button id="save_course" className="big-save-button"
                                 onClick={() => this.changeCoursesDisplay(this.state.id)}>Save</button>
                             </h1>
@@ -84,8 +65,33 @@ class Course extends React.Component {
                                 <th>Weight</th>
                                 <th>Average</th>
                             </tr>
-                            <tbody>
-                                {this.state.sect}
+                            <tbody className="table-row">
+                                {this.state.sect.map((section, index) => (
+                                    <tr onClick={() => this.deleteRow(section)}>
+                                        <td>{section.name}</td>
+                                        <td>{(() => {
+                                            var toRet = ""
+                                            for (var i = 0; i < section.grades.length; i++) {
+                                                if (i == 0) {
+                                                    toRet = toRet + section.grades[i]
+                                                } else {
+                                                    toRet = toRet + ", " + section.grades[i]
+                                                }
+                                            }
+                                            return toRet
+                                        }) ()}</td>
+                                        <td>{(() => {
+                                            if (section.dropped) {
+                                                return "Yes"
+                                            } else {
+                                                return "No"
+                                            }
+                                        }) ()}</td>
+                                        <td>{section.numDropped}</td>
+                                        <td>{section.weight}</td>
+                                        <td>{section.avg}</td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                         <div className="add-new-section-button">
@@ -93,11 +99,25 @@ class Course extends React.Component {
                         </div>
                     </div>
                     <div className="add-section-display">
-                        <AddSection ctr={this.myCallBack} id={this.state.id} changeDisplay={this.changeAddSectionDisplay}/>
+                        <AddSection ctr={this.forceReRender} uniqueId={this.state.id} name={this.state.name} sections={this.state.sect} changeDisplay={this.changeAddSectionDisplay}/>
                     </div>
                 </div>
             </div>
         );
+    }
+
+    deleteRow = (event) => {
+        var sections = this.state.sect;
+        var arr = [];
+        sections.forEach((section) => {
+            if (section != event) {
+                arr.push(section)
+            }
+        })
+        console.log(arr)
+        let db = firebase.firestore();
+        let addDoc = db.collection('courses').doc(this.state.id).update({sections: arr});
+        this.setState({sect: arr})
     }
 
     changeCoursesDisplay = (courseid) => {
@@ -113,6 +133,8 @@ class Course extends React.Component {
             smallCourseToSee.show()
         } else {
             courseToSee.show()
+            courseToSee.find(".add-section-display").hide()
+            courseToSee.find("#addNewSectionDisplay").show()
         }
     }
 

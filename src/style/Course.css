@@ -161,3 +161,11 @@ newSection
 .add-new-section-button {
     margin: 15px auto;
 }
+
+.table-row :hover{
+    background-color: lightblue;
+}
+
+.edit-section-display {
+    display: none;
+}

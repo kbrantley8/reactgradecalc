@@ -1,6 +1,7 @@
 import React from 'react';
 import '../style/Course.css';
 import $ from "jquery";
+import firebase from '../firebase.js';
 import Section from '../view/Section';
 
 class newSection extends React.Component {
@@ -9,9 +10,12 @@ class newSection extends React.Component {
         this.controller = props.ctr;
 
         this.state = {
-            id: props.id,
+            name: props.name,
+            sections: props.sections,
+            id: props.uniqueId,
             listOfInputs: []
         }
+        // console.log(this.state)
         this.state.listOfInputs.push(<input type="number" id="grades0"></input>)
         this.addGrade = this.addGrade.bind(this)
         this.loseGrade = this.loseGrade.bind(this)
@@ -26,10 +30,13 @@ class newSection extends React.Component {
         var gradesBool = courseToSee.find("#gradesBool").val()
         var gradesNum = courseToSee.find("#gradesNum").val();
         var weight = courseToSee.find("#weight").val()
-        weight = weight + "%"
         var grades = [];
         if (gradesBool == "No") {
+            gradesBool = false;
             gradesNum = "N/A";
+        } else {
+            gradesBool = true;
+            gradesNum = parseInt(gradesNum)
         }
         for (var i = 0; i < this.state.listOfInputs.length; i++) {
             var toGet = "#grades" + i;
@@ -37,16 +44,46 @@ class newSection extends React.Component {
             courseToSee.find(toGet).val("")
             grades.push(num)
         }
-        let props = { 
+        var arr = [];
+        var sum = 0;
+        grades.forEach((grade) => {
+            var realGrade = parseInt(grade)
+            arr.push(realGrade)
+            sum += realGrade
+        })
+        arr.sort(function(a, b){return a-b});
+        var average = 0;
+        if (gradesBool) {
+            for (var i = 0; i < gradesNum; i++) {
+                sum -= arr[i]
+            }
+            average = Math.round(((sum / (grades.length - gradesNum)) * 10) / 10);
+        } else {
+            average = Math.round(((sum / grades.length) * 10) / 10);
+        }
+        let data = { 
             name: sectionName,
             grades: grades,
             dropped: gradesBool,
             numDropped: gradesNum,
-            weight: weight
+            weight: parseInt(weight),
+            avg: average
         }
         
-        var sec = <Section {...props}/>;
-        this.props.ctr(sec);
+        // var sec = <Section {...props}/>;
+        // this.props.ctr(sec);
+
+        var t = this.state.sections;
+        t.push(data)
+        const data1 = {
+            name: this.state.name,
+            sections: t,
+            uniqueId: this.state.id
+        };
+        // console.log(data1)
+        let db = firebase.firestore();
+        let addDoc = db.collection('courses').doc(data1.uniqueId).update(data1);
+
         courseToSee.find("#sectionName").val("")
         courseToSee.find("#gradesBool").val("No")
         courseToSee.find("#gradesNum").val("")
@@ -57,6 +94,7 @@ class newSection extends React.Component {
         var newID = "grades" + temp.length;
         temp.push(<input type="number" className="input-margin" id={newID}></input>)
         this.setState({listOfInputs: temp})
+        this.props.ctr();
     }
 
     addGrade() {

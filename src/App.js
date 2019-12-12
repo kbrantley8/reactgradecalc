@@ -1,6 +1,7 @@
 import React from 'react';
 import Course from './view/Course.js';
 import './App.css';
+import firebase from './firebase.js';
 import $ from "jquery";
 
 class App extends React.Component {
@@ -8,11 +9,34 @@ class App extends React.Component {
     super()
     document.body.style = 'background: lightblue;';
     this.state = {
-      courses: []
+      courses: [],
     }
   }
 
+  async componentDidMount() {
+    var arr = []
+    firebase
+        .firestore()
+        .collection("courses")
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                arr.push({
+                  name: doc.data().name,
+                  sections: doc.data().sections,
+                  uniqueId: doc.id
+                })
+            });
+            this.setState({courses: arr})
+        });
+  }
+
   render() {
+    // this.state.courses.map((course) => {
+    //    course.sections.forEach((section) => {
+    //      console.log(section)
+    //    })
+    // })
     return (
       <div>
         <div>
@@ -24,10 +48,11 @@ class App extends React.Component {
           <input id="newCourseName" ></input>
         </div>
         <div className="text-center list-of-courses">
-          {this.state.courses.map((name) => (
+          {this.state.courses.map((course, index) => (
             <Course
-              name={name}
-              id={this.state.courses.length}
+              name={course.name}
+              sections={course.sections}
+              uniqueId={course.uniqueId}
             />
           ))}
         </div>
@@ -39,10 +64,18 @@ class App extends React.Component {
   addNewCourse = () => {
     var name = $("#newCourseName").val();
     if (name != "") {
-      var list = this.state.courses;
-      list.push(name)
-      $("#newCourseName").val("")
-      this.setState({courses: list})
+      const uuidv4 = require('uuid/v4');
+      var uniqueId = uuidv4();
+      const data = {
+        name: name,
+        sections: [],
+        uniqueId: uniqueId
+      };
+		  let db = firebase.firestore();
+      let addDoc = db.collection('courses').doc(data.uniqueId).set(data);
+      var arr = this.state.courses;
+      arr.push(data);
+      this.setState({courses: arr});
     }
   }
   
