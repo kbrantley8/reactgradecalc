@@ -6,7 +6,7 @@ import firebase from './firebase.js';
 class App extends React.Component {
   constructor() {
     super()
-    document.body.style = 'background: lightblue;';
+    document.body.style = 'background: lightyellow;';
     this.state = {
       new_course_name: "",
       courses: [],
