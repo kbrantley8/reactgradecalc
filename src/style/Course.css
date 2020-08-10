@@ -6,6 +6,7 @@
     width: 75%;
     margin: 10px auto 10px auto;
     font-family: "Bookman Old Style";
+    padding: 6px;
 }
 /*
 Bookman Old Style
@@ -107,7 +108,6 @@ newSection
 }
 
 .change-course-display {
-    display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
     padding-top: 100px; /* Location of the box */
@@ -163,7 +163,7 @@ newSection
 }
 
 .table-row :hover{
-    background-color: lightblue;
+    background-color: lightgrey;
 }
 
 .edit-section-display {

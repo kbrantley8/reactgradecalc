@@ -2,30 +2,38 @@ import React from 'react';
 import '../style/Course.css';
 import firebase from '../firebase.js';
 
-class newSection extends React.Component {
+class EditSection extends React.Component {
     constructor(props) {
         super(props)
-
         this.state = {
             name: props.name,
             sections: props.sections,
             uniqueId: props.uniqueId,
+            section: props.section,
             listOfInputs: [],
 
-            section_name: "",
+            section_name: props.section.name,
             section_grades: {},
-            grades_dropped: false,
-            section_weight: '0',
-            showNumDropped: false,
-            num_dropped: '0'
+            grades_dropped: props.section.dropped,
+            section_weight: props.section.weight,
+            showNumDropped: props.section.dropped,
+            num_dropped: props.section.numDropped
         }
         this.updateAverage = props.handleUpdateCourse;
-        this.toggleShowAddSectionModal = props.toggleShowAddSectionModal;
+        this.toggleShowEditSectionModal = props.toggleShowEditSectionModal;
         this.calculateAverage = props.calculateAverage;
-        this.state.listOfInputs.push(<input key={this.state.listOfInputs.length} type="number" id="grades0" onChange={(e) => this.handleGradeChange(e.target, e.target.value)}></input>)
+        for (var grade of props.section.grades) {
+            let new_id = "grades" + this.state.listOfInputs.length;
+            if (this.state.listOfInputs.length > 0) {
+                this.state.listOfInputs.push(<input key={this.state.listOfInputs.length} type="number" className="input-margin" id={new_id} defaultValue={grade} onChange={(e) => this.handleGradeChange(e.target, e.target.value)}></input>)
+            } else {
+                this.state.listOfInputs.push(<input key={this.state.listOfInputs.length} type="number" id={new_id} defaultValue={grade} onChange={(e) => this.handleGradeChange(e.target, e.target.value)}></input>)
+            }
+            this.state.section_grades[new_id] = grade;
+        }
     }
 
-    addSection = () => {
+    editSection = () => {
         let grades_arr = [];
         for (const grade in this.state.section_grades) {
             var value = this.state.section_grades[grade];
@@ -40,14 +48,22 @@ class newSection extends React.Component {
             avg: this.calculateAverage(this.state.section_grades, this.state.num_dropped)
         }
         var temp_sections = this.state.sections
-        temp_sections.push(data)
+        var arr = [];
+        for (var ind in temp_sections) {
+            var section = temp_sections[ind]
+            if (section === this.state.section) {
+                arr.push(data)
+            } else {
+                arr.push(section)
+            }
+        }
         const data1 = {
-            sections: temp_sections,
+            sections: arr,
         };
         let db = firebase.firestore();
         db.collection('courses').doc(this.state.uniqueId).update(data1);
-        this.updateAverage(temp_sections)
-        this.toggleShowAddSectionModal();
+        this.updateAverage(arr)
+        this.toggleShowEditSectionModal();
     }
 
     handleGradeChange = (target, value) => {
@@ -92,7 +108,7 @@ class newSection extends React.Component {
         return (
             <div className="new-section col-sm-6">
                 <div>
-                    <h1> Add a Section </h1>
+                    <h1> Edit Section </h1>
                 </div>
                 <div className="row row-padding">
                     <div className="col-sm-6">
@@ -147,13 +163,13 @@ class newSection extends React.Component {
                         <label htmlFor="weight">Weight:</label>
                     </div>
                     <div className="col-sm-6">
-                        <input type="number" placeholder="%" id="weight" min="0" max="100" onChange={(e) => this.setState({ section_weight: e.target.value })}></input>
+                        <input type="number" placeholder="%" id="weight" min="0" max="100" value={this.state.section_weight} onChange={(e) => this.setState({ section_weight: e.target.value })}></input>
                     </div>
                 </div>
                 <div className="row row-padding">
                     <div className="mx-auto">
-                        <button onClick={() => this.toggleShowAddSectionModal()} className="align-baseline newSectionButton">Close</button>
-                        <button id="addSection" onClick={this.addSection} className="align-baseline newSectionButton">Add a Section</button>
+                        <button onClick={() => this.toggleShowEditSectionModal()} className="align-baseline newSectionButton">Close</button>
+                        <button id="editSection" onClick={this.editSection} className="align-baseline newSectionButton">Edit Section</button>
                     </div>
                 
                 </div>
@@ -163,4 +179,4 @@ class newSection extends React.Component {
     
 }
 
-export default newSection;
+export default EditSection;

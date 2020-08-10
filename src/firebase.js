@@ -1,4 +1,5 @@
-import firebase from 'firebase' // TODO: only what we need
+const firebase = require('firebase/app');
+require('firebase/firestore');
 
 var firebaseConfig = {
     apiKey: "AIzaSyDJaEs4eoBFoW0cq85KN76TN7V8Kx3-NFE",
@@ -12,5 +13,5 @@ var firebaseConfig = {
   };
 
 // Initialize Firebase
-var defaultApp = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 export default firebase;
