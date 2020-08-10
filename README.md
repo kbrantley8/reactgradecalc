@@ -1,10 +1,10 @@
 # Kory's Grade Calculator in React
 
-This was just a starter project for me to learn React for my junior design project in the Fall of 2019. This was created over the Summer of 2019 using bootstrap and jQuery. Also for the Fall of 2019, I joined the GaTech SGA IT Board and wanted to experiment with creating a backend that uses a database. The **master** branch is the main branch, that has just basic functionality of the website with basically no backend/database. The **databaseIntegration** branch is the branch where I began experimenting with integrating Firebase into the project (it may not work perfectly so always make sure to reload your page when using it).
+This was just a starter project for me to learn React for my junior design project in the Fall of 2019. This was created over the Summer of 2019 using bootstrap and jQuery. Also for the Fall of 2019, I joined the GaTech SGA IT Board and wanted to experiment with creating a backend that uses a database. So I added a backend to this project using Firebase that is universal. 
 
 ## Information
 
-There are two versions of this in the two branches: **master** and **databaseIntegration**.
+This was made for myself so the grades shown will be reflected among everybody who messes with it. Feel free to make your own course and play with it however you want but be aware that everyone will be able to see it.
 
 ## Installing
 
@@ -20,18 +20,6 @@ npm install
 npm start
 ```
 
-This should start up the server and you should be able to interact with it with no database.
-
-If you want the **databaseIntegration**, do:
-
-```
-git fetch --all
-```
-
-then: 
-
-```
-git checkout databaseIntegration
-```
+This should start up the server and you should be able to interact with it.
 
 That should be it. Hopefully that works lol. Thanks for checking this out! :-)
