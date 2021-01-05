@@ -1,6 +1,6 @@
 # Kory's Grade Calculator in React
 
-This was just a starter project for me to learn React for my junior design project in the Fall of 2019. This was created over the Summer of 2019 using bootstrap and jQuery. Also for the Fall of 2019, I joined the GaTech SGA IT Board and wanted to experiment with creating a backend that uses a database. So I added a backend to this project using Firebase that is universal. 
+This was just a starter project for me to learn React for my junior design project in the Fall of 2019. This was created over the Summer of 2019 using bootstrap and jQuery. Also for the Fall of 2019, I joined the GaTech SGA IT Board and wanted to experiment with creating a backend that uses a database. So I added a backend to this project using Firebase that is universal. In Fall 2020, I implemented Redux on a seperate branch to experiment with Redux.
 
 ## Information
 

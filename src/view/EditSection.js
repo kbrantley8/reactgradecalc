@@ -1,7 +1,12 @@
 import React from 'react';
 import '../style/Course.css';
-import firebase from '../firebase.js';
 
+import { connect } from 'react-redux';
+import { editSection } from '../redux/actions/editSectionActions'
+
+const mapDispatchToProps = dispatch => ({
+    editSection: (uniqueId, data) => dispatch(editSection(uniqueId, data))
+});
 class EditSection extends React.Component {
     constructor(props) {
         super(props)
@@ -19,7 +24,6 @@ class EditSection extends React.Component {
             showNumDropped: props.section.dropped,
             num_dropped: props.section.numDropped
         }
-        this.updateAverage = props.handleUpdateCourse;
         this.toggleShowEditSectionModal = props.toggleShowEditSectionModal;
         this.calculateAverage = props.calculateAverage;
         for (var grade of props.section.grades) {
@@ -60,9 +64,9 @@ class EditSection extends React.Component {
         const data1 = {
             sections: arr,
         };
-        let db = firebase.firestore();
-        db.collection('courses').doc(this.state.uniqueId).update(data1);
-        this.updateAverage(arr)
+        // let db = firebase.firestore();
+        // db.collection('courses').doc(this.state.uniqueId).update(data1);
+        this.props.editSection(this.state.uniqueId, data1)
         this.toggleShowEditSectionModal();
     }
 
@@ -179,4 +183,4 @@ class EditSection extends React.Component {
     
 }
 
-export default EditSection;
+export default connect(null, mapDispatchToProps)(EditSection);

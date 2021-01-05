@@ -1,6 +1,18 @@
 import React from 'react';
 import '../style/Course.css';
 import ModalPopup from './ModalPopup';
+import { connect } from 'react-redux';
+import { deleteCourse } from '../redux/actions/deleteCourseActions'
+import { SHOW_COURSE_MODAL } from '../redux/actionTypes';
+
+const mapStateToProps = state => ({
+    ...state.modal
+})
+
+const mapDispatchToProps = dispatch => ({
+    deleteCourse: (uniqueId) => dispatch(deleteCourse(uniqueId)),
+    showModal: (uniqueId) => dispatch({ type: SHOW_COURSE_MODAL, payload: uniqueId })
+});
 
 class Course extends React.Component {
     constructor(props) {
@@ -9,15 +21,10 @@ class Course extends React.Component {
         this.state = {
             sect: props.sections,
             name: props.name,
-            average: 0,
+            average: props.average,
             uniqueId: props.uniqueId,
             showModalPopup: false
         }
-        this.handleDeleteCourseClick = props.handleDeleteCourseClick;
-    }
-
-    componentDidMount() {
-        this.updateCourse(this.state.sect);
     }
 
     render() {
@@ -41,15 +48,13 @@ class Course extends React.Component {
                             </div>
                     </div>
                 </div>
-                {(this.state.showModalPopup) 
+                {(this.props.id === this.state.uniqueId) 
                 ? 
                 <ModalPopup
                     name={this.state.name}
                     average={this.state.average}
                     sections={this.state.sect}
                     uniqueId={this.state.uniqueId}
-                    handleUpdateCourse={this.updateCourse}
-                    handleSaveClick={this.changeCoursesDisplay}
                 />
                 :
                 null}
@@ -57,25 +62,13 @@ class Course extends React.Component {
         );
     }
 
-    updateCourse = (sections) => {
-        let tops = 0;
-        let weights = 0;
-        sections.forEach((section) => {
-            tops += section.weight * section.avg;
-            weights += section.weight;
-        })
-        let average = (tops/weights).toFixed(2);
-        this.setState({ average: average, sect: sections })
-        return average;
+    handleDeleteCourseClick = () => {
+        this.props.deleteCourse(this.state.uniqueId)
     }
 
     changeCoursesDisplay = () => {
-        if (this.state.showModalPopup) {
-            this.setState({showModalPopup: false})
-        } else {
-            this.setState({showModalPopup: true})
-        }
+        this.props.showModal(this.state.uniqueId)
     }
 }
 
-export default Course;
+export default connect(mapStateToProps, mapDispatchToProps)(Course);

@@ -1,7 +1,12 @@
 import React from 'react';
 import '../style/Course.css';
-import firebase from '../firebase.js';
 
+import { connect } from 'react-redux';
+import { addSection } from '../redux/actions/addSectionActions'
+
+const mapDispatchToProps = dispatch => ({
+    addSection: (uniqueId, data) => dispatch(addSection(uniqueId, data))
+});
 class newSection extends React.Component {
     constructor(props) {
         super(props)
@@ -19,7 +24,6 @@ class newSection extends React.Component {
             showNumDropped: false,
             num_dropped: '0'
         }
-        this.updateAverage = props.handleUpdateCourse;
         this.toggleShowAddSectionModal = props.toggleShowAddSectionModal;
         this.calculateAverage = props.calculateAverage;
         this.state.listOfInputs.push(<input key={this.state.listOfInputs.length} type="number" id="grades0" onChange={(e) => this.handleGradeChange(e.target, e.target.value)}></input>)
@@ -44,9 +48,7 @@ class newSection extends React.Component {
         const data1 = {
             sections: temp_sections,
         };
-        let db = firebase.firestore();
-        db.collection('courses').doc(this.state.uniqueId).update(data1);
-        this.updateAverage(temp_sections)
+        this.props.addSection(this.state.uniqueId, data1)
         this.toggleShowAddSectionModal();
     }
 
@@ -163,4 +165,4 @@ class newSection extends React.Component {
     
 }
 
-export default newSection;
+export default connect(null, mapDispatchToProps)(newSection);

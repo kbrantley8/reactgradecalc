@@ -1,8 +1,18 @@
 import React from 'react';
-import firebase from '../firebase'
 import AddSection from '../view/newSection'
 import EditSection from '../view/EditSection'
+import { connect } from 'react-redux';
+import { HIDE_COURSE_MODAL } from '../redux/actionTypes';
+import { deleteSection } from '../redux/actions/deleteSectionActions'
 
+const mapStateToProps = state => ({
+    ...state.modal
+})
+
+const mapDispatchToProps = dispatch => ({
+    hideModal: () => dispatch({ type: HIDE_COURSE_MODAL }),
+    deleteSection: (uniqueId, data) => dispatch(deleteSection(uniqueId, data))
+});
 class ModalPopup extends React.Component {
     constructor(props) {
         super(props)
@@ -15,9 +25,6 @@ class ModalPopup extends React.Component {
             showAddSectionModal: false,
             showEditSectionModal: false
         }
-
-        this.handleSaveClick = props.handleSaveClick;
-        this.updateCourse = props.handleUpdateCourse;
     }
     
     render() {
@@ -33,7 +40,7 @@ class ModalPopup extends React.Component {
                                 <p>0%</p>
                                 }
                             <button id="save_course" className="big-save-button"
-                            onClick={() => this.handleSaveClick()}>Save</button>
+                            onClick={() => this.props.hideModal()}>Save</button>
                         </h1>
                     </div>
         
@@ -93,7 +100,6 @@ class ModalPopup extends React.Component {
                     name={this.state.name}
                     sections={this.state.sections}
                     toggleShowAddSectionModal={this.toggleShowAddSectionModal}
-                    handleUpdateCourse={this.handleUpdateCourse}
                     calculateAverage={this.calculateAverage}
                 />
                 :
@@ -106,7 +112,6 @@ class ModalPopup extends React.Component {
                     sections={this.state.sections}
                     section={this.state.sectionToEdit}
                     toggleShowEditSectionModal={this.toggleShowEditSectionModal}
-                    handleUpdateCourse={this.handleUpdateCourse}
                     calculateAverage={this.calculateAverage}
                 />
                 :
@@ -137,7 +142,7 @@ class ModalPopup extends React.Component {
                 sum += value;
                 count++;
             }
-            var average = sum / count;
+            var average = (count === 0) ? 100 : sum / count
             return average;
 
         } else {
@@ -151,11 +156,6 @@ class ModalPopup extends React.Component {
             let average = sum / count;
             return average;
         }
-    }
-
-    handleUpdateCourse = (sections) => {
-        var average = this.updateCourse(sections);
-        this.setState({ average: average, sections: sections })
     }
 
     handleEditSectionClick = (section) => {
@@ -172,10 +172,7 @@ class ModalPopup extends React.Component {
                 arr.push(val)
             }
         })
-        let db = firebase.firestore();
-        db.collection('courses').doc(this.state.uniqueId).update({sections: arr});
-        this.handleUpdateCourse(arr);
-        this.setState({sections: arr})
+        this.props.deleteSection(this.state.uniqueId, arr)
     }
 
     toggleShowAddSectionModal = () => {
@@ -190,4 +187,4 @@ class ModalPopup extends React.Component {
     
 }
 
-export default ModalPopup;
+export default connect(mapStateToProps, mapDispatchToProps)(ModalPopup);
